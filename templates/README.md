@@ -11,7 +11,7 @@ W,oak_stairs,half:bottom,facing:west # Oak stairs with base on the bottom and fa
 # <width>x<height>x<depth>
 5x3x3
 
-# South-most face, left = west, right = east
+# South-most face, left = west, right = east - this face is facing player when spawned
 _ _ _ _ _
 _ A W A _
 _ _ _ _ _
@@ -21,7 +21,7 @@ _ _ _ _ _
 _ W A W _
 _ _ _ _ _
 
-# North-most face, left = west, right = east
+# North-most face, left = west, right = east - this face is on the other side of spawned structure from the player
 _ _ W _ _
 W A A A W
 _ _ W _ _
