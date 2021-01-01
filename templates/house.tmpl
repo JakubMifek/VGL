@@ -1,0 +1,137 @@
+# Building blocks
+X, # Leave be
+A,air
+H,log
+=,log,axis:x
+",log,axis:z
+P,planks
+G,glass_pane
+I,wooden_door,half:upper,hinge:left,facing:south
+J,wooden_door,half:lower,hinge:left,facing:south
+W,oak_stairs,half:bottom,facing:west
+V,oak_stairs,half:top,facing:west
+E,oak_stairs,half:bottom,facing:east
+F,oak_stairs,half:top,facing:east
+N,oak_stairs,half:bottom,facing:north
+M,oak_stairs,half:top,facing:north
+S,oak_stairs,half:bottom,facing:south
+Z,oak_stairs,half:top,facing:south
+*,wooden_slab,half:top
+4,torch,facing:east
+6,torch,facing:west
+8,torch,facing:south
+2,torch,facing:north
+
+10x10x10
+
+# Template
+# 1st slice
+X X X X X X X X X X
+X X X X X X X X X X
+X X X X X X X X X X
+X X X X X X X X X X
+X X X X X X X X X X
+N N N N N N N N N N
+X X X X X X X X X X
+X X X X X X X X X X
+X X X X X X X X X X
+X X X X X X X X X X
+# 2nd slice
+A A A A A A A A A A
+A A A A E W A A A A
+A A A E V F W A A A
+A A E V A A F W A A
+A E V A A A A F W A
+E H = = = = = = H W
+A H A A A A A A H A
+A H A A A 8 I A H A
+A H A A A A J A H A
+X H = = = = = = H X
+# 3rd slice
+A A A A A A A A A A
+A A A A E W A A A A
+A A A E P P W A A A
+A A E P G G P W A A
+A E P P G G P P W A
+E " P P P P P P " W
+A A P P P P P P A A
+A A P G G P A P A A
+A A P P P P A P A A
+X " P P P P P P " X
+# 4th slice
+A A A A A A A A A A
+A A A A E W A A A A
+A A A E P P W A A A
+A A E V A A F W A A
+A E P A A A A P W A
+E " P A P P P P " W
+A A P A A A A P A A
+A A P 4 A A A P A A
+A A P W A A A P A A
+X " P P P P P P " X
+# 5th slice
+A A A A A A A A A A
+A A A A E W A A A A
+A A A E P P W A A A
+A A E V A A F W A A
+A E P A A A 6 P W A
+E " P A P P P P " W
+A A P A A A A P A A
+A A P N A A A G A A
+A A P Z A A A P A A
+X " P P P P P P " X
+# 6th slice
+A A A A A A A A A A
+A A A A E W A A A A
+A A A E P P W A A A
+A A E V A A F W A A
+A E P 4 A A A P W A
+E " P A P P P P " W
+A A P N A A A P A A
+A A P Z A A A G A A
+A A P A A A A P A A
+X " P P P P P P " X
+# 7th slice
+A A A A A A A A A A
+A A A A E W A A A A
+A A A E P P W A A A
+A A E V A A F W A A
+A E P A A A A P W A
+E " P A A E P P " W
+A A P V * A A P A A
+A A P A A A 6 P A A
+A A P A A A A P A A
+X " P P P P P P " X
+# 8th slice
+A A A A A A A A A A
+A A A A E W A A A A
+A A A E P P W A A A
+A A E P G G P W A A
+A E P P G G P P W A
+E " P P P P P P " W
+A A P P P P P P A A
+A A P G G G G P A A
+A A P P P P P P A A
+X " P P P P P P " X
+# 9th slice
+A A A A A A A A A A
+A A A A E W A A A A
+A A A E V F W A A A
+A A E V A A F W A A
+A E V A A A A F W A
+E H = = = = = = H W
+A H A A A A A A H A
+A H A A A A A A H A
+A H A A A A A A H A
+X H = = = = = = H X
+# 10th slice
+X X X X X X X X X X
+X X X X X X X X X X
+X X X X X X X X X X
+X X X X X X X X X X
+X X X X X X X X X X
+S S S S S S S S S S
+X X X X X X X X X X
+X X X X X X X X X X
+X X X X X X X X X X
+X X X X X X X X X X
