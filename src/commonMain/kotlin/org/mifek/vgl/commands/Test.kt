@@ -1,4 +1,4 @@
-package org.mifek.vgl
+package org.mifek.vgl.commands
 
 class Test {
     fun test(): String {

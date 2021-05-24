@@ -1,7 +1,6 @@
 plugins {
-    id 'org.jetbrains.kotlin.multiplatform' version '1.4.20'
+    id 'org.jetbrains.kotlin.multiplatform' version '1.4.31'
     id "com.github.johnrengelman.shadow" version "6.1.0"
-    id 'java'
 }
 
 group = 'org.mifek.vgl'
@@ -9,6 +8,7 @@ version = '1.0.0'
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 kotlin {
@@ -23,6 +23,9 @@ kotlin {
 
     sourceSets {
         commonMain {
+            dependencies {
+                implementation 'org.mifek.wfc:WFC-Kotlin:1.2.0'
+            }
         }
         commonTest {
             dependencies {
@@ -32,12 +35,8 @@ kotlin {
             }
         }
         jvmMain {
-            dependencies {
-                implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
-            }
         }
         jvmTest {
-            dependsOn commonTest
             dependencies {
                 implementation kotlin('test-junit')
             }

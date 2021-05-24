@@ -5,7 +5,7 @@ import org.mifek.vgl.implementations.Blocks
 
 const val VALUE_SEPARATOR = ','
 const val PROPS_SEPARATOR = ':'
-val hashRegex = Regex("^(\\w+(_\\w+)*)?($VALUE_SEPARATOR\\w+$PROPS_SEPARATOR\\w+)*$")
+val hashRegex = Regex("^(-?\\d+)?($VALUE_SEPARATOR\\w+$PROPS_SEPARATOR\\w+)*$")
 
 //val HOUSE =
 //        arrayOf(

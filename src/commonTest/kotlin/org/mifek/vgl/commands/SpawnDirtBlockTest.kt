@@ -1,5 +1,6 @@
-package org.mifek.vgl
+package org.mifek.vgl.commands
 
+import org.mifek.vgl.commands.SpawnDirtBlock
 import org.mifek.vgl.implementations.Area
 import org.mifek.vgl.implementations.Blocks
 import kotlin.test.Test

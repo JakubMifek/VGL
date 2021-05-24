@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="VGL-jvm-1.0.0">
+    <output-path>C:\Users\jakub\Documents\Github\VGL\build\libs</output-path>
+    <root id="archive" name="VGL-jvm-1.0.0.jar" />
+  </artifact>
+</component>

@@ -1,10 +1,10 @@
-package org.mifek.vgl
+package org.mifek.vgl.commands
 
 import org.mifek.vgl.implementations.Blocks
 import org.mifek.vgl.interfaces.IArea
 import org.mifek.vgl.interfaces.IBlockStream
 import org.mifek.vgl.implementations.PlacedBlock
-import org.mifek.vgl.utilities.TemplateHolder
+import org.mifek.vgl.utils.TemplateHolder
 
 class SpawnHouse {
     fun execute(area: IArea, stream: IBlockStream) {
@@ -44,7 +44,7 @@ class SpawnHouse {
                         stream.add(PlacedBlock(area.x + house.size - 1 - x, area.y + y, area.z - z, house[x][y][z].block, house[x][y][z].props))
 
                         // If doors, place upper half as well
-                        if(house[x][y][z].block.id == Blocks.WOODEN_DOOR.id && y + 1 < house[x].size) {
+                        if(house[x][y][z].block.id == Blocks.OAK_DOOR.id && y + 1 < house[x].size) {
                             stream.add(PlacedBlock(area.x +  house.size - 1 - x, area.y + y + 1, area.z - z, house[x][y+1][z].block, house[x][y+1][z].props))
 
                             // Skip the upper door placement
