@@ -2,16 +2,28 @@ package org.mifek.vgl.utils
 
 import org.mifek.vgl.implementations.Block
 import org.mifek.vgl.implementations.Blocks
+import org.mifek.wfc.adapters.utils.toIntArray2D
+import org.mifek.wfc.datastructures.IntArray2D
 import java.io.File
 import java.io.FileWriter
 import java.io.PrintWriter
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
+import javax.imageio.ImageIO
 import kotlin.math.max
+import kotlin.streams.toList
 
 actual object TemplateHolder {
     actual val templates: HashMap<String, Array<Array<Array<Block>>>> = HashMap()
+    actual val floorPlans: HashMap<String, Array<Array<Block>>> = HashMap()
+
+    var fp: IntArray2D = IntArray2D(0, 0)
+    val floorPlan: IntArray2D
+        get() {
+            return fp
+        }
+
     private val resourcesPath: Path
 
     private val alphabet =
@@ -21,8 +33,18 @@ actual object TemplateHolder {
     init {
         val projectDirAbsolutePath = Paths.get("").toAbsolutePath().toString()
         resourcesPath = Paths.get(projectDirAbsolutePath, "/templates")
-        Files.walk(resourcesPath)
-            .filter { item -> Files.isRegularFile(item) }
+
+        val staticPaths = Paths.get(resourcesPath.toAbsolutePath().toString(), "/static")
+        if (!staticPaths.toFile().exists()) {
+            staticPaths.toFile().mkdirs()
+        }
+
+        val stream = Files.walk(resourcesPath)
+        val files = stream.filter { item ->
+            Files.isRegularFile(item)
+        }.toList()
+
+        files
             .filter { item -> item.toString().endsWith(".tmpl") }
             .map { item ->
                 Pair(
@@ -30,8 +52,19 @@ actual object TemplateHolder {
                     item.toFile().readLines().filter { it.trim().isNotEmpty() && it.trim()[0] != '#' })
             }
             .forEach { (path, item) ->
-                templates[path.fileName.toString().split('.')[0]] = processFile(path.fileName.toString(), item)
+                add(path.fileName.toString().split('.')[0], processFile(path.fileName.toString(), item))
             }
+
+        files
+            .filter { item -> item.toString().endsWith(".png") }
+            .map { processImage(it) }
+    }
+
+    private fun processImage(path: Path) {
+        if (path.fileName.toString() == "floor_plan.png") {
+            fp = ImageIO.read(path.toFile()).toIntArray2D()
+            println("Found the floor plan!")
+        }
     }
 
     private fun processFile(path: String, lines: List<String>): Array<Array<Array<Block>>> {
@@ -103,13 +136,24 @@ actual object TemplateHolder {
         return ret
     }
 
-    fun removeTemplate(name: String): Boolean {
+    fun removeTemplateFile(name: String): Boolean {
         val file = File(resourcesPath.toFile(), name)
         return file.delete()
     }
 
+    fun add(name: String, template: Array<Array<Array<Block>>>) {
+        templates[name] = template
+        floorPlans[name] = extractFloorPlan(name)
+    }
+
+    fun extractFloorPlan(name: String): Array<Array<Block>> {
+        val template = templates[name]!!
+        return Array(template.size) { x -> Array(template[x][0].size) { z -> template[x][0][z] } }
+    }
+
     actual fun saveTemplate(template: Array<Array<Array<Block>>>, name: String): String {
-        templates[if (name.endsWith(".tmpl")) name.substring(0, name.length - 5) else name] = template
+        add(if (name.endsWith(".tmpl")) name.substring(0, name.length - 5) else name, template)
+
         val file = File(resourcesPath.toFile(), name)
         if (!file.exists()) file.createNewFile()
 

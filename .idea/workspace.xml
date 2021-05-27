@@ -4,44 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b715c455-b253-4247-a3ad-2062559b7de8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/VGL_jvm_1_0_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/Generate.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/GenerateHouse.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/SaveTemplate.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/SpawnDirtBlock.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/implementations/PlacementStyle.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/utils/IntArray3DExtensions.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/DebugOptions.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/MinecraftWfcAdapter.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/MinecraftWfcAdapterOptions.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/StreamOptions.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/utils/TemplateHolderTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/MinecraftWfcAdapterTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/longhouse.tmpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/vgl_jvm_1_0_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/Constants.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/Constants.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/SpawnDirtBlock.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/SpawnHouse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/SpawnHouse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/Test.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/Test.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/implementations/Block.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/implementations/Block.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/implementations/Blocks.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/implementations/Blocks.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/utilities/TemplateHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/utils/TemplateHolder.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonTest/kotlin/org/mifek/vgl/SpawnDirtBlockTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonTest/kotlin/org/mifek/vgl/commands/SpawnDirtBlockTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/org/mifek/vgl/utilities/TemplateHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/org/mifek/vgl/utils/TemplateHolder.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/house.tmpl" beforeDir="false" afterPath="$PROJECT_DIR$/templates/house.tmpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/wood_block.tmpl" beforeDir="false" afterPath="$PROJECT_DIR$/templates/wood_block.tmpl" afterDir="false" />
+    <list default="true" id="691cb249-98dc-4216-b4cc-19741793bda4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/sources/floor_plan.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/palettes/Basic.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/palettes/Palette.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/palettes/PaletteKeys.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/org/mifek/vgl/village/FloorPlan.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/FloorPlanTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/static/floor_plan.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/Generate.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/Generate.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/GenerateHouse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/GenerateHouse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/utils/TemplateHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/utils/TemplateHolder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/MinecraftWfcAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/MinecraftWfcAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/MinecraftWfcAdapterOptions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/MinecraftWfcAdapterOptions.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/org/mifek/vgl/utils/TemplateHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/org/mifek/vgl/utils/TemplateHolder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/MinecraftWfcAdapterTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/MinecraftWfcAdapterTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +61,11 @@
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="verification" type="c8890929:TasksNode$1" />
               </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="VGL" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+              </path>
             </expand>
             <select />
           </tree_state>
@@ -90,10 +73,27 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Kotlin Class" />
+        <option value="Kotlin Sealed Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1so1iUh6iUh5GfemnapSjzrJ8N3" />
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="1t1owVVXYZ3iizXivj4WvQFMZEB" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -101,8 +101,87 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/static" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jakub\Documents\Github\VGL\templates\static" />
+      <recent name="C:\Users\jakub\Documents\Github\VGL\src\sources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jakub\Documents\Github\VGL" />
+    </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="org.mifek.vgl.palettes" />
+    </key>
   </component>
   <component name="RunManager" selected="Gradle.VGL [jar]">
+    <configuration name="FloorPlanTest.testFloorPlanGeneration" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;org.mifek.vgl.wfc.FloorPlanTest.testFloorPlanGeneration&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="cleanJvmTest" />
+            <option value="jvmTest" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="FloorPlanTest.testWoodBlock" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;org.mifek.vgl.wfc.FloorPlanTest.testWoodBlock&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="cleanJvmTest" />
+            <option value="jvmTest" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="VGL [allTests]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="allTests" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="VGL [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -124,43 +203,36 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="VGL [jvmTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="jvmTest" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.VGL [jar]" />
-        <item itemvalue="Gradle.VGL [jvmTest]" />
+        <item itemvalue="Gradle.VGL [allTests]" />
+        <item itemvalue="Gradle.FloorPlanTest.testFloorPlanGeneration" />
+        <item itemvalue="Gradle.FloorPlanTest.testWoodBlock" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="b715c455-b253-4247-a3ad-2062559b7de8" name="Default Changelist" comment="" />
-      <created>1621524256158</created>
+      <changelist id="691cb249-98dc-4216-b4cc-19741793bda4" name="Default Changelist" comment="" />
+      <created>1621946195183</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1621524256158</updated>
+      <updated>1621946195183</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

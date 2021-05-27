@@ -15,32 +15,8 @@ import org.mifek.wfc.models.options.Cartesian3DModelOptions
 class GenerateHouse {
     fun execute(
         area: IArea,
-        stream: IBlockStream,
-        debugOptions: DebugOptions = DebugOptions()
+        options: MinecraftWfcAdapterOptions
     ): Array<Array<Array<Block>>>? {
-        val house = TemplateHolder.templates["house"]!!
-        return MinecraftWfcAdapter.imitate(
-            house, Triple(area.width, area.height, area.depth),
-            MinecraftWfcAdapterOptions(
-                repeats = 10,
-                modelOptions = Cartesian3DModelOptions(allowXFlips = true, allowZFlips = true),
-                streamOptions = StreamOptions(stream, area),
-                fixedBlocks = sequence {
-                    yield(
-                        Pair(
-                            Triple(1, 0, 1),
-                            Block(Blocks.OAK_WOOD)
-                        )
-                    )
-                    yield(
-                        Pair(
-                            Triple(8, 0, 1),
-                            Block(Blocks.OAK_WOOD)
-                        )
-                    )
-                }.asIterable(),
-                debugOptions = debugOptions
-            ),
-        )
+        return null
     }
 }

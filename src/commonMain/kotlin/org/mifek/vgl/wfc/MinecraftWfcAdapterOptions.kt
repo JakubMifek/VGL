@@ -11,4 +11,5 @@ data class MinecraftWfcAdapterOptions(
     val debugOptions: DebugOptions? = null,
     val repeats: Int = 1,
     val streamOptions: StreamOptions? = null,
+    val name: String? = null,
 )

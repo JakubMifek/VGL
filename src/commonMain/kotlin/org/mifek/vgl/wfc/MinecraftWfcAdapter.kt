@@ -1,27 +1,56 @@
 package org.mifek.vgl.wfc
 
-import org.mifek.vgl.implementations.Block
-import org.mifek.vgl.implementations.Blocks
-import org.mifek.vgl.implementations.PlacedBlock
-import org.mifek.vgl.implementations.PlacementStyle
+import org.mifek.vgl.implementations.*
 import org.mifek.vgl.utils.toBlockData
 import org.mifek.vgl.utils.toIntArray3D
 import org.mifek.wfc.datastructures.IntArray3D
+import org.mifek.wfc.models.OverlappingCartesian2DModel
 import org.mifek.wfc.models.OverlappingCartesian3DModel
+import org.mifek.wfc.models.options.Cartesian2DModelOptions
+import org.mifek.wfc.models.options.Cartesian3DModelOptions
+import org.mifek.wfc.models.storage.PatternWeights2D
+import org.mifek.wfc.models.storage.PatternWeights3D
 import org.mifek.wfc.utils.toCoordinates
+import javax.xml.transform.sax.TemplatesHandler
 import kotlin.random.Random
 
 @Suppress("TYPE_INFERENCE_ONLY_INPUT_TYPES_WARNING")
+@ExperimentalUnsignedTypes
 class MinecraftWfcAdapter {
     companion object {
-        @ExperimentalUnsignedTypes
+        private val cache = HashMap<String, PatternWeights3D>()
+
+        private fun serializeOptions(options: Cartesian3DModelOptions): String {
+            return options.toString()
+                .substringAfter('(')
+                .substringBefore(')')
+                .split(", ")
+                .joinToString("") { it.split("=")[1] }
+        }
+
         fun imitate(
             template: Array<Array<Array<Block>>>,
             outputDimensions: Triple<Int, Int, Int>,
-            options: MinecraftWfcAdapterOptions
+            options: MinecraftWfcAdapterOptions,
         ): Array<Array<Array<Block>>>? {
             val dataMapping = template.toIntArray3D()
-            val model = OverlappingCartesian3DModel(
+
+            var patternWeights: PatternWeights3D? = null
+            val key = "${options.name}_${options.overlap}_${serializeOptions(options.modelOptions)}"
+
+            // Cache retrieval
+            if (options.name != null && cache.containsKey(key)) {
+                patternWeights = cache[key]
+                println("Using stored $key")
+            }
+
+            // Use cache if possible
+            val model = if (patternWeights != null) OverlappingCartesian3DModel(
+                patternWeights,
+                outputDimensions.first,
+                outputDimensions.second,
+                outputDimensions.third,
+            ) else OverlappingCartesian3DModel(
                 dataMapping.first,
                 options.overlap,
                 outputDimensions.first,
@@ -29,6 +58,13 @@ class MinecraftWfcAdapter {
                 outputDimensions.third,
                 options.modelOptions
             )
+
+            // Store to cache if not already present
+            if (options.name != null && patternWeights == null) {
+                println("Storing $key")
+                cache[key] = model.storage
+            }
+
             if (options.fixedBlocks != null) {
                 options.fixedBlocks.forEach {
                     val coordinates = it.first

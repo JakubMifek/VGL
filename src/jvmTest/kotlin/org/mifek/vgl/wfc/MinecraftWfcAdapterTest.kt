@@ -1,6 +1,5 @@
 package org.mifek.vgl.wfc
 
-import org.mifek.vgl.commands.GenerateHouse
 import org.mifek.vgl.commands.SaveTemplate
 import org.mifek.vgl.implementations.Area
 import org.mifek.vgl.implementations.Block
@@ -72,7 +71,7 @@ class MinecraftWfcAdapterTest {
         printTemplate(result)
     }
 
-    @Test
+    /*@Test
     fun testGenerateHouseCommand() {
         printTemplate(
             GenerateHouse().execute(
@@ -81,7 +80,7 @@ class MinecraftWfcAdapterTest {
                 DebugOptions(verbose = false)
             ) ?: emptyArray()
         )
-    }
+    }*/
 
     @Test
     fun testSaveTemplateCommand() {
@@ -95,6 +94,6 @@ class MinecraftWfcAdapterTest {
         val two = TemplateHolder.templates["wood_block"]!!.flatten().toTypedArray().flatten().map { it.serialize() }
             .toTypedArray()
         assertTrue(one.contentEquals(two))
-        assertTrue(TemplateHolder.removeTemplate(name))
+        assertTrue(TemplateHolder.removeTemplateFile(name))
     }
 }

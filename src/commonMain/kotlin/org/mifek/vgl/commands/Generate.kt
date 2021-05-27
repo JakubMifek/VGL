@@ -5,6 +5,7 @@ import org.mifek.vgl.interfaces.IArea
 import org.mifek.vgl.utils.TemplateHolder
 import org.mifek.vgl.wfc.MinecraftWfcAdapter
 import org.mifek.vgl.wfc.MinecraftWfcAdapterOptions
+import javax.xml.transform.sax.TemplatesHandler
 
 @ExperimentalUnsignedTypes
 class Generate {
