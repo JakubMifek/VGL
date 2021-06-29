@@ -4,14 +4,10 @@ import org.mifek.vgl.implementations.*
 import org.mifek.vgl.utils.toBlockData
 import org.mifek.vgl.utils.toIntArray3D
 import org.mifek.wfc.datastructures.IntArray3D
-import org.mifek.wfc.models.OverlappingCartesian2DModel
 import org.mifek.wfc.models.OverlappingCartesian3DModel
-import org.mifek.wfc.models.options.Cartesian2DModelOptions
 import org.mifek.wfc.models.options.Cartesian3DModelOptions
-import org.mifek.wfc.models.storage.PatternWeights2D
 import org.mifek.wfc.models.storage.PatternWeights3D
 import org.mifek.wfc.utils.toCoordinates
-import javax.xml.transform.sax.TemplatesHandler
 import kotlin.random.Random
 
 @Suppress("TYPE_INFERENCE_ONLY_INPUT_TYPES_WARNING")
@@ -21,11 +17,12 @@ class MinecraftWfcAdapter {
         private val cache = HashMap<String, PatternWeights3D>()
 
         private fun serializeOptions(options: Cartesian3DModelOptions): String {
-            return options.toString()
-                .substringAfter('(')
-                .substringBefore(')')
-                .split(", ")
-                .joinToString("") { it.split("=")[1] }
+            println(options.toString())
+            return "=[^=]*(=|$)".toRegex().findAll(
+                options.toString()
+                    .substringAfter('(')
+                    .substringBefore(')')
+            ).joinToString("") { it.value.substringBeforeLast(',').substring(1) }
         }
 
         fun imitate(
@@ -33,17 +30,20 @@ class MinecraftWfcAdapter {
             outputDimensions: Triple<Int, Int, Int>,
             options: MinecraftWfcAdapterOptions,
         ): Array<Array<Array<Block>>>? {
+            println("Creating mapping...")
             val dataMapping = template.toIntArray3D()
 
+            println("Mapping created.")
             var patternWeights: PatternWeights3D? = null
             val key = "${options.name}_${options.overlap}_${serializeOptions(options.modelOptions)}"
 
             // Cache retrieval
             if (options.name != null && cache.containsKey(key)) {
-                patternWeights = cache[key]
                 println("Using stored $key")
+                patternWeights = cache[key]
             }
 
+            println("Creating model...")
             // Use cache if possible
             val model = if (patternWeights != null) OverlappingCartesian3DModel(
                 patternWeights,
@@ -65,11 +65,13 @@ class MinecraftWfcAdapter {
                 cache[key] = model.storage
             }
 
-            if (options.fixedBlocks != null) {
-                options.fixedBlocks.forEach {
+            if (options.setBlocks != null) {
+                println("Setting blocks...")
+                options.setBlocks.forEach {
                     val coordinates = it.first
                     val value = dataMapping.third[it.second.serialize()]
                         ?: throw Error("Fixed block was not in the template palette.")
+
                     model.setPixel(
                         coordinates.first,
                         coordinates.second,
@@ -79,9 +81,11 @@ class MinecraftWfcAdapter {
                 }
             }
 
+            println("Creating algorithm...")
             val algorithm = model.build()
 
             if (options.streamOptions != null) {
+                println("Setting up stream...")
                 if (options.streamOptions.placementStyle == PlacementStyle.ON_COLLAPSE) {
                     algorithm.afterCollapse += { triple ->
                         try {
@@ -208,62 +212,58 @@ class MinecraftWfcAdapter {
 
             if (options.debugOptions != null) {
                 if (options.debugOptions.verbose) {
-                    /*algorithm.afterObserve += {
-                        println("observed ${it.third} on ${it.second}")
-                    }
+                    println("Setting up debug outputs...")
+//                    algorithm.afterObserve += {
+//                        println("observed ${it.third} on ${it.second}")
+//                    }
 
                     var i = 0
                     algorithm.afterBan += {
-                        if(++i % 10 == 0) {
+                        i++
+                        if (i > 200) {
+                            i--
                             try {
                                 println("Ban")
-//                            val output =
-//                                model.constructNullableOutput(algorithm).toBlockData(pair.second, options.debugOptions)
-                                val output = algorithm.constructOutput()
-                                for (z in 0 until output.depth) {
-                                    for (y in 0 until output.height) {
-                                        for (x in 0 until output.width) {
-                                            print("${output[x, y, z]} ")
-                                        }
-                                        println()
-                                    }
-                                    println("\n---\n")
-                                }
-
-//                            println(output.joinToString("\n\n\n") { it.joinToString("\n") { it.joinToString(", ") { it.serialize() } } })
+                                val output =
+                                    model.constructNullableOutput(algorithm)
+//                                        .toBlockData(dataMapping.second, options.debugOptions)
+                                println(output.joinToString("\n\n\n") {
+                                    it.reversed()
+                                        .joinToString("\n") { it.joinToString(", ") { it.toString() /*.serialize()*/ } }
+                                })
                                 println("\n\n--------------------------------------------------------------------------------------------\n\n")
                             } catch (error: Error) {
                                 println(error)
                             }
                         }
-                    }*/
-
-                    algorithm.afterObserve += {
-                        try {
-                            println("Observe")
-                            val output =
-                                model.constructNullableOutput(algorithm)
-                                    .toBlockData(dataMapping.second, options.debugOptions)
-                            println(output.joinToString("\n\n\n") { it.joinToString("\n") { it.joinToString(", ") { it.serialize() } } })
-                            println("\n\n--------------------------------------------------------------------------------------------\n\n")
-                        } catch (error: Error) {
-                            println(error)
-                        }
                     }
 
+//                    algorithm.afterObserve += {
+//                        try {
+//                            println("Observe")
+//                            val output =
+//                                model.constructNullableOutput(algorithm)
+//                                    .toBlockData(dataMapping.second, options.debugOptions)
+//                            println(output.joinToString("\n\n\n") { it.joinToString("\n") { it.joinToString(", ") { it.serialize() } } })
+//                            println("\n\n--------------------------------------------------------------------------------------------\n\n")
+//                        } catch (error: Error) {
+//                            println(error)
+//                        }
+//                    }
 
-                    algorithm.afterClear += {
-                        try {
-                            println("Clear")
-                            val output =
-                                model.constructNullableOutput(algorithm)
-                                    .toBlockData(dataMapping.second, options.debugOptions)
-                            println(output.joinToString("\n\n\n") { it.joinToString("\n") { it.joinToString(", ") { it.serialize() } } })
-                            println("\n\n--------------------------------------------------------------------------------------------\n\n")
-                        } catch (error: Error) {
-                            println(error)
-                        }
-                    }
+
+//                    algorithm.afterClear += {
+//                        try {
+//                            println("Clear")
+//                            val output =
+//                                model.constructNullableOutput(algorithm)
+//                                    .toBlockData(dataMapping.second, options.debugOptions)
+//                            println(output.joinToString("\n\n\n") { it.joinToString("\n") { it.joinToString(", ") { it.serialize() } } })
+//                            println("\n\n--------------------------------------------------------------------------------------------\n\n")
+//                        } catch (error: Error) {
+//                            println(error)
+//                        }
+//                    }
 
 
                     algorithm.beforeStart += {
@@ -272,7 +272,9 @@ class MinecraftWfcAdapter {
                             val output =
                                 model.constructNullableOutput(algorithm)
                                     .toBlockData(dataMapping.second, options.debugOptions)
-                            println(output.joinToString("\n\n\n") { it.joinToString("\n") { it.joinToString(", ") { it.serialize() } } })
+                            println(output.joinToString("\n\n\n") {
+                                it.reversed().joinToString("\n") { it.joinToString(", ") { it.serialize() } }
+                            })
                             println("\n\n--------------------------------------------------------------------------------------------\n\n")
                         } catch (error: Error) {
                             println(error)
@@ -285,7 +287,9 @@ class MinecraftWfcAdapter {
                             val output =
                                 model.constructNullableOutput(algorithm)
                                     .toBlockData(dataMapping.second, options.debugOptions)
-                            println(output.joinToString("\n\n\n") { it.joinToString("\n") { it.joinToString(", ") { it.serialize() } } })
+                            println(output.joinToString("\n\n\n") {
+                                it.reversed().joinToString("\n") { it.joinToString(", ") { it.serialize() } }
+                            })
                             println("\n\n--------------------------------------------------------------------------------------------\n\n")
                         } catch (error: Error) {
                             println(error)
@@ -298,7 +302,9 @@ class MinecraftWfcAdapter {
                             val output =
                                 model.constructNullableOutput(algorithm)
                                     .toBlockData(dataMapping.second, options.debugOptions)
-                            println(output.joinToString("\n\n\n") { it.joinToString("\n") { it.joinToString(", ") { it.serialize() } } })
+                            println(output.joinToString("\n\n\n") {
+                                it.reversed().joinToString("\n") { it.joinToString(", ") { it.serialize() } }
+                            })
                             println("\n\n--------------------------------------------------------------------------------------------\n\n")
                         } catch (error: Error) {
                             println(error)
@@ -321,20 +327,25 @@ class MinecraftWfcAdapter {
                 failed = true
             }
 
-            for (i in 0 until options.repeats) {
+            var result = false
+            for (i in 0..options.repeats) {
                 val seed = random.nextInt()
                 println("---------")
                 println("Try ${i + 1}; seed = $seed")
                 println("---------")
                 failed = false
-                if (algorithm.run(seed)) break
+                result = algorithm.run(seed)
+                if (result) break
             }
 
-            if (!failed) {
+            if (!failed && result) {
                 println("Succeeded")
             } else {
+                println("Algorithm was unsuccessful.")
                 return null
             }
+
+            if (options.streamOptions != null) return null
 
             return model.constructNullableOutput(algorithm).toBlockData(dataMapping.second, options.debugOptions)
         }

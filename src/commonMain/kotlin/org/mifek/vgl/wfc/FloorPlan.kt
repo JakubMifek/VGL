@@ -1,11 +1,19 @@
-/*
-package org.mifek.vgl.village
+package org.mifek.vgl.wfc
 
+import org.mifek.vgl.implementations.Block
+import org.mifek.vgl.implementations.Blocks
+import org.mifek.vgl.implementations.PlacedBlock
+import org.mifek.vgl.implementations.PlacementStyle
 import org.mifek.vgl.palettes.PaletteKeys
-import org.mifek.vgl.utils.TemplateHolder
+import org.mifek.vgl.utils.toBlockData
+import org.mifek.vgl.utils.toIntArray2D
+import org.mifek.wfc.datastructures.IntArray2D
+import org.mifek.wfc.datastructures.IntArray3D
 import org.mifek.wfc.models.OverlappingCartesian2DModel
 import org.mifek.wfc.models.options.Cartesian2DModelOptions
 import org.mifek.wfc.models.storage.PatternWeights2D
+import org.mifek.wfc.utils.formatPatterns
+import org.mifek.wfc.utils.toCoordinates
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.random.Random
@@ -13,44 +21,202 @@ import kotlin.random.Random
 @ExperimentalUnsignedTypes
 class FloorPlan {
     companion object {
-        private const val REPEATS = 5
+        private val cache = HashMap<String, PatternWeights2D>()
 
+        private fun serializeOptions(options: Cartesian2DModelOptions): String {
+            return options.toString()
+                .substringAfter('(')
+                .substringBefore(')')
+                .split(", ")
+                .joinToString("") { it.split("=")[1] }
+        }
 
+        val mapping = mapOf(
+            Pair(Blocks.OAK_WOOD_PLANK, "▣"),
+            Pair(Blocks.STONE, "⬛"),
+            Pair(Blocks.GRASS, "⬜"),
+            Pair(PaletteKeys.DOORS, "▣"),
+            Pair(PaletteKeys.WALL, "⬛"),
+            Pair(PaletteKeys.GROUND, "⬜"),
+            Pair(PaletteKeys.FLOOR, "⬜"),
+            Pair(null, "?")
+        )
 
-        fun generate(name: String, width: Int, height: Int, seed: Int = Random.nextInt()): Array<Array<PaletteKeys>> {
-            val model = OverlappingCartesian2DModel(
-                floorPlanPatternWeights,
+        fun printFloorPlan(result: Array<Array<PaletteKeys>>) {
+            for (x in result.indices) {
+                for (y in result[x].indices) {
+                    print(mapping[result[x][y]] + " ")
+                }
+                println()
+            }
+            println()
+        }
+
+        fun printFloorPlan(result: Array<Array<Block>>) {
+            for (x in result.indices) {
+                for (y in result[x].indices) {
+                    print(mapping[result[x][y].block] + " ")
+                }
+                println()
+            }
+            println()
+        }
+
+        fun generate(
+            template: Array<Array<Block>>,
+            width: Int,
+            height: Int,
+            options: FloorPlanOptions,
+        ): Array<Array<Block>>? {
+            val dataMapping = template.toIntArray2D()
+
+            var patternWeights: PatternWeights2D? = null
+            val key = "${options.name}_${options.overlap}_${serializeOptions(options.modelOptions)}"
+
+            // Cache retrieval
+            if (options.name != null && cache.containsKey(key)) {
+                patternWeights = cache[key]
+                println("Using stored $key")
+            }
+
+            // Use cache if possible
+            val model = if (patternWeights != null) OverlappingCartesian2DModel(
+                patternWeights,
                 width,
                 height
+            ) else OverlappingCartesian2DModel(
+                dataMapping.first,
+                options.overlap,
+                width,
+                height,
+                options.modelOptions
             )
 
-            for (x in width / 4 until 3 * width / 4) {
-                for (y in height / 4 until 3 * height / 4) {
-                    model.banPixel(x, y, PaletteKeys.GROUND.id)
+            // Store to cache if not already present
+            if (options.name != null && patternWeights == null) {
+                println("Storing $key")
+                cache[key] = model.storage
+            }
+//
+//            for ((i, pattern) in model.patterns.withIndex()) {
+//                println("$i:")
+//                val formatted = IntArray2D(model.patternSideSize, model.patternSideSize) { pattern[it] }
+//                for (y in 0 until model.patternSideSize) {
+//                    for (x in 0 until model.patternSideSize) {
+//                        print("${formatted[x, y]} ")
+//                    }
+//                    println()
+//                }
+//            }
+
+            if (options.setBlocks != null) {
+                options.setBlocks.forEach {
+                    val coordinates = it.first
+                    val value = dataMapping.third[it.second.serialize()]
+                        ?: throw Error("Set block was not in the template palette.")
+                    model.setPixel(
+                        coordinates.first,
+                        coordinates.second,
+                        value
+                    )
+                }
+            }
+
+            if (options.bannedBlocks != null) {
+                options.bannedBlocks.forEach {
+                    val coordinates = it.first
+                    val value = dataMapping.third[it.second.serialize()]
+                        ?: return@forEach
+                    model.banPixel(
+                        coordinates.first,
+                        coordinates.second,
+                        value
+                    )
                 }
             }
 
             val algorithm = model.build()
-            var result = false
+/*
+            algorithm.afterBan += {
+                if (it.second == 37) {
+                    println(
+                        "Banning ${it.third} for ${it.second}. Remaining ${it.first.waves[37].sumOf { if (it) 1.0 else 0.0 }} - first is ${
+                            it.first.waves[37].indexOf(
+                                true
+                            )
+                        }"
+                    )
 
-            val r = Random(seed)
+                    printFloorPlan(
+                        model.constructNullableOutput(algorithm).toBlockData(dataMapping.second, options.debugOptions)
+                    )
+                }
+            }
+*/
 
-            for (i in 1..REPEATS) {
-                result = algorithm.run(r.nextInt())
-                if (result) break
+            val random = Random(options.debugOptions?.seed ?: Random.Default.nextInt())
+            var failed = false
+
+            algorithm.afterFail += {
+                println("Failed")
+                failed = true
             }
 
-            if (!result) {
-                throw Error("Unable to generate floor plan!")
+            for (i in 0 until options.repeats) {
+                val seed = random.nextInt()
+                println("---------")
+                println("Try ${i + 1}; seed = $seed")
+                println("---------")
+                failed = false
+                if (algorithm.run(seed)) break
             }
 
-            val output = model.constructOutput(algorithm)
+            if (!failed) {
+                println("Succeeded")
+            } else {
+                return null
+            }
 
-            val plan = Array(output.height) { y -> Array(output.width) { x -> PaletteKeys.getById(output[x, y]) } }
+            val output = model.constructNullableOutput(algorithm).toBlockData(dataMapping.second, options.debugOptions)
 
-            return naiveDoorFix(
-                plan, r
-            )
+//            printFloorPlan(output)
+
+//            val paletteMapped = Array(output.size) { x ->
+//                Array(output[x].size) { y ->
+//                    val res = when (output[x][y].block) {
+//                        Blocks.DIRT -> PaletteKeys.GROUND
+//                        Blocks.GRASS -> PaletteKeys.GROUND
+//                        Blocks.STONE -> PaletteKeys.WALL
+//                        else -> PaletteKeys.FLOOR
+//                    }
+//                    // If the result is to be floor
+//                    if (res == PaletteKeys.FLOOR
+//                        // But there are horizontal walls around
+//                        && (x > 0 && x < output.size - 1 && output[x - 1][y].block == Blocks.STONE && output[x + 1][y].block == Blocks.STONE
+//                                // Or vertical walls around
+//                                || y > 0 && y < output[x].size - 1 && output[x][y - 1].block == Blocks.STONE && output[x][y + 1].block == Blocks.STONE)
+//                    ) {
+//                        // It's actually a door separating two rooms
+//                        PaletteKeys.DOORS
+//                    } else res
+//                }
+//            }
+
+            return output
+
+//            printFloorPlan(paletteMapped)
+
+//            val plan = naiveDoorFix(paletteMapped, random)
+//
+//            return Array(output.size) { x ->
+//                Array(output[x].size) { y ->
+//                    when (plan[x][y]) {
+//                        PaletteKeys.WALL -> Block(Blocks.STONE)
+//                        PaletteKeys.GROUND -> Block(Blocks.GRASS)
+//                        else -> Block(Blocks.OAK_WOOD_PLANK)
+//                    }
+//                }
+//            }
         }
 
         fun naiveDoorFix(data: Array<Array<PaletteKeys>>, r: Random = Random.Default): Array<Array<PaletteKeys>> {
@@ -139,6 +305,16 @@ class FloorPlan {
 
                     j = i
                     colors = doors[i].first
+                }
+
+                val randomPick = r.nextInt(j, doors.size)
+                for (k in j until doors.size) {
+                    if (k == randomPick) continue
+
+                    data[doors[k].second][doors[k].third] = PaletteKeys.WALL
+                    mapped[doors[k].second][doors[k].third] = -2
+
+                    doorsToRemove.add(doors[k])
                 }
             }
 
@@ -279,4 +455,4 @@ class FloorPlan {
             if (y < data[x].size - 1 && data[x][y + 1] == -1) color(data, color, x, y + 1)
         }
     }
-}*/
+}
