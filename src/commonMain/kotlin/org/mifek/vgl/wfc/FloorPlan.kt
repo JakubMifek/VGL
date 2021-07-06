@@ -2,18 +2,12 @@ package org.mifek.vgl.wfc
 
 import org.mifek.vgl.implementations.Block
 import org.mifek.vgl.implementations.Blocks
-import org.mifek.vgl.implementations.PlacedBlock
-import org.mifek.vgl.implementations.PlacementStyle
 import org.mifek.vgl.palettes.PaletteKeys
 import org.mifek.vgl.utils.toBlockData
 import org.mifek.vgl.utils.toIntArray2D
-import org.mifek.wfc.datastructures.IntArray2D
-import org.mifek.wfc.datastructures.IntArray3D
 import org.mifek.wfc.models.OverlappingCartesian2DModel
 import org.mifek.wfc.models.options.Cartesian2DModelOptions
 import org.mifek.wfc.models.storage.PatternWeights2D
-import org.mifek.wfc.utils.formatPatterns
-import org.mifek.wfc.utils.toCoordinates
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.random.Random

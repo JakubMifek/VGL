@@ -1,8 +1,9 @@
 package org.mifek.vgl
 
 import org.mifek.vgl.implementations.Block
+import org.mifek.vgl.implementations.PlacedBlock
 
-fun Array<Array<Array<Block>>>.formatForPrint(defaultMapping: Map<String, String> = emptyMap()): String {
+fun Array<Array<Array<PlacedBlock>>>.formatForPrint(defaultMapping: Map<String, String> = emptyMap()): String {
     if (isEmpty() || this[0].isEmpty() || this[0][0].isEmpty()) return ""
 
     val blockTypes = this.flatten().toTypedArray().flatten().map { it.serialize() }.distinct()

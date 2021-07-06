@@ -9,9 +9,9 @@ data class MinecraftVillageAdapterOptions(
         grounded = true, roofed = true, leftSided = true, rightSided = true
     ),
     /**
-     * name of template - [weight, {minWidth, minHeight, minDepth}]
+     * name of template - [weight, {minWidth, minDepth}, {maxWidth, maxDepth}]
      */
-    val templateOptions: Map<String, Pair<Float, Triple<Int, Int, Int>>> = emptyMap(),
+    val templateOptions: Map<String, Triple<Float, Pair<Int, Int>, Pair<Int, Int>?>> = emptyMap(),
     /**
      * Sets the weight of free space in the village. One house has default collective weight of 57.
      * This value is going to be multiplied by number of desired houses in the village.

@@ -36,7 +36,7 @@ class GenerateHouse {
             repeats = 1,
         )
 
-        private val DOORS = setOf(
+        val DOORS = setOf(
             Blocks.OAK_DOOR,
             Blocks.ACACIA_DOOR,
             Blocks.BIRCH_DOOR,
@@ -46,15 +46,15 @@ class GenerateHouse {
             Blocks.SPRUCE_DOOR,
         )
 
-        private val TRANSPARENT = setOf(
+        val TRANSPARENT = setOf(
             Blocks.AIR,
 //            Blocks.IRON_TRAPDOOR,
 //            Blocks.WOODEN_TRAPDOOR
         ).plus(DOORS)
 
-        private val AIR_BLOCK = Block(Blocks.AIR)
+        val AIR_BLOCK = Block(Blocks.AIR)
 
-        private val BREAKABLE = setOf(
+        val BREAKABLE = setOf(
             Blocks.TORCH,
             Blocks.GRASS,
             Blocks.RAIL,
@@ -67,53 +67,53 @@ class GenerateHouse {
         ).plus(DOORS)
 
         private val posXLowerDoors =
-            hashMapOf<String, Any>(Pair("half", "lower"), Pair("facing", "north"), Pair("hinge", "left"))
+            hashMapOf<String, Any>(Pair("half", "lower"), Pair("facing", "west"), Pair("hinge", "left"))
         private val posXUpperDoors =
-            hashMapOf<String, Any>(Pair("half", "upper"), Pair("facing", "north"), Pair("hinge", "left"))
+            hashMapOf<String, Any>(Pair("half", "upper"), Pair("facing", "west"), Pair("hinge", "left"))
         private val posXDoors = Pair(posXLowerDoors, posXUpperDoors)
 
         private val negXLowerDoors =
-            hashMapOf<String, Any>(Pair("half", "lower"), Pair("facing", "south"), Pair("hinge", "left"))
+            hashMapOf<String, Any>(Pair("half", "lower"), Pair("facing", "east"), Pair("hinge", "left"))
         private val negXUpperDoors =
-            hashMapOf<String, Any>(Pair("half", "upper"), Pair("facing", "south"), Pair("hinge", "left"))
+            hashMapOf<String, Any>(Pair("half", "upper"), Pair("facing", "east"), Pair("hinge", "left"))
         private val negXDoors = Pair(negXLowerDoors, negXUpperDoors)
 
         private val posZLowerDoors =
-            hashMapOf<String, Any>(Pair("half", "lower"), Pair("facing", "west"), Pair("hinge", "left"))
+            hashMapOf<String, Any>(Pair("half", "lower"), Pair("facing", "north"), Pair("hinge", "left"))
         private val posZUpperDoors =
-            hashMapOf<String, Any>(Pair("half", "upper"), Pair("facing", "west"), Pair("hinge", "left"))
+            hashMapOf<String, Any>(Pair("half", "upper"), Pair("facing", "north"), Pair("hinge", "left"))
         private val posZDoors = Pair(posZLowerDoors, posZUpperDoors)
 
         private val negZLowerDoors =
-            hashMapOf<String, Any>(Pair("half", "lower"), Pair("facing", "east"), Pair("hinge", "left"))
+            hashMapOf<String, Any>(Pair("half", "lower"), Pair("facing", "south"), Pair("hinge", "left"))
         private val negZUpperDoors =
-            hashMapOf<String, Any>(Pair("half", "upper"), Pair("facing", "east"), Pair("hinge", "left"))
+            hashMapOf<String, Any>(Pair("half", "upper"), Pair("facing", "south"), Pair("hinge", "left"))
         private val negZDoors = Pair(negZLowerDoors, negZUpperDoors)
-    }
 
-    private fun stream(
-        stream: IBlockStream,
-        area: IArea,
-        blocks: Array<Array<Array<Block>>>,
-        yesFilter: Set<Blocks>? = null,
-        noFilter: Set<Blocks>? = null
-    ) {
-        for (z in 0 until blocks[0][0].size) {
-            for (y in 0 until blocks[0].size) {
-                for (x in blocks.indices) {
-                    val block = blocks[z][y][x]
-                    if (yesFilter != null && block.block !in yesFilter) continue
-                    if (noFilter != null && block.block in noFilter) continue
+        fun stream(
+            stream: IBlockStream,
+            area: IArea,
+            blocks: Array<Array<Array<Block>>>,
+            yesFilter: Set<Blocks>? = null,
+            noFilter: Set<Blocks>? = null
+        ) {
+            for (z in 0 until blocks[0][0].size) {
+                for (y in 0 until blocks[0].size) {
+                    for (x in blocks.indices) {
+                        val block = blocks[x][y][z]
+                        if (yesFilter != null && block.block !in yesFilter) continue
+                        if (noFilter != null && block.block in noFilter) continue
 
-                    stream.add(
-                        PlacedBlock(
-                            area.x + x,
-                            area.y + y,
-                            area.z + z,
-                            block.block,
-                            block.props
+                        stream.add(
+                            PlacedBlock(
+                                area.x + x,
+                                area.y + y,
+                                area.z + z,
+                                block.block,
+                                block.props
+                            )
                         )
-                    )
+                    }
                 }
             }
         }
@@ -123,7 +123,7 @@ class GenerateHouse {
         templateName: String,
         area: IArea,
         options: MinecraftWfcAdapterOptions = defaultOptions
-    ): Array<Array<Array<Block>>>? {
+    ): Array<Array<Array<PlacedBlock>>>? {
         val template = TemplateHolder.templates[templateName] ?: throw Error("Could not find template $templateName.")
 
         for (x in template.indices) {
@@ -159,23 +159,37 @@ class GenerateHouse {
         ) ?: return null
 
         try {
-            val result = postprocess(house, Random(options.debugOptions?.seed ?: Random.nextInt()))
+            val result = postprocess(
+                house,
+                template,
+                Random(options.debugOptions?.seed ?: Random.nextInt())
+            )
 
-            if (streamOptions == null) return result
+            if (streamOptions == null) return result.mapIndexed { x, it1 ->
+                it1.mapIndexed { y, it2 ->
+                    it2.mapIndexed { z, it3 ->
+                        PlacedBlock(area.x + x, area.y + y, area.z + z, it3.block, it3.props)
+                    }.toTypedArray()
+                }.toTypedArray()
+            }.toTypedArray()
 
             stream(streamOptions.stream, area, result, noFilter = BREAKABLE)
             stream(streamOptions.stream, area, result, yesFilter = BREAKABLE)
-        } catch (error: Error) {
+        } catch (error: Exception) {
             println("Error")
             println(error.message)
-            println(error.stackTrace)
+            println(error.stackTraceToString())
             throw error
         }
 
         return null
     }
 
-    fun postprocess(house: Array<Array<Array<Block>>>, random: Random): Array<Array<Array<Block>>> {
+    fun postprocess(
+        house: Array<Array<Array<Block>>>,
+        template: Array<Array<Array<Block>>>,
+        random: Random
+    ): Array<Array<Array<Block>>> {
         // Mark walls and free space
         val blackWhiteColored = IntArray3D(house.size, house[0].size, house[0][0].size) { BlockType.WALL.id }
         for (x in house.indices) for (y in house[x].indices) for (z in house[x][y].indices) {
@@ -204,7 +218,8 @@ class GenerateHouse {
 
         // Color the doors
         val coloredDoors = colorDoors(colored, doorLocations)
-        val surroundings = findSurroundings(house, colored, coloredDoors)
+        val surroundings = findSurroundings(template, house, coloredDoors)
+
 
 /*
         println("Doors: ${coloredDoors.size}")
@@ -234,71 +249,155 @@ class GenerateHouse {
         println(doorsToCreate.joinToString("\n") { it.toString() })
 */
 
+        val originalDoors =
+            template.flatten().toTypedArray().flatten().map { it.block }.filter { it in DOORS }.distinct()
+                .toTypedArray()
+
         try {
             // Finally create the doors
             createDoors(doorsToCreate, coloredDoors, doorLocations)
-            placeInDoors(coloredDoors, surroundings, house, random)
+            placeInDoors(
+                coloredDoors, surroundings, house,
+                if (originalDoors.isEmpty()) arrayOf(Blocks.OAK_DOOR) else originalDoors,
+                random
+            )
         } catch (error: Error) {
             println(error.message)
-            println(error.stackTrace)
+            println(error.stackTraceToString())
         }
         return house
     }
 
-    private fun findSurroundings(
-        house: Array<Array<Array<Block>>>,
-        colored: IntArray3D,
-        coloredDoors: MutableSet<Pair<Pair<Int, Int>, Triple<Int, Int, Int>>>
-    ): Array<Triple<Set<Direction3D>, Boolean, Array<Array<Array<Block?>>>>> {
-        return coloredDoors.map {
-            Iterable {
-                iterator {
-                    val horizontal: Boolean =
-                        (it.second.first == 0 || house[it.second.first - 1][it.second.second][it.second.third].block !in TRANSPARENT)
-                                && (it.second.first == house.size - 1 || house[it.second.first + 1][it.second.second][it.second.third].block !in TRANSPARENT)
+    private fun getSurroundings(
+        data: Array<Array<Array<Block>>>,
+        x: Int,
+        y: Int,
+        z: Int
+    ): Triple<Set<Direction3D>, Boolean, Array<Array<Array<Block?>>>>? {
+        var horizontal: Boolean =
+            (x == 0 || data[x - 1][y][z].block !in TRANSPARENT)
+                    && (x == data.size - 1 || data[x + 1][y][z].block !in TRANSPARENT)
+                    && (z == 0 || data[x][y][z - 1].block in TRANSPARENT)
+                    && (z == data[x][y].size - 1 || data[x][y][z + 1].block in TRANSPARENT)
+        val vertical: Boolean =
+            (x == 0 || data[x - 1][y][z].block in TRANSPARENT)
+                    && (x == data.size - 1 || data[x + 1][y][z].block in TRANSPARENT)
+                    && (z == 0 || data[x][y][z - 1].block !in TRANSPARENT)
+                    && (z == data[x][y].size - 1 || data[x][y][z + 1].block !in TRANSPARENT)
 
-                    val directions = Iterable {
-                        iterator {
-                            if (it.second.second < colored.height - 2) yield(Direction3D.UP)
-                            if (it.second.third < colored.depth - 1) yield(Direction3D.FORWARD)
-                            if (it.second.first < colored.width - 1) yield(Direction3D.RIGHT)
-                            if (it.second.second > 0) yield(Direction3D.DOWN)
-                            if (it.second.third > 0) yield(Direction3D.BACKWARD)
-                            if (it.second.first > 0) yield(Direction3D.LEFT)
-                        }
-                    }.toSet()
+        if (!horizontal && !vertical) return null
 
-                    val arr = Array(3) { x ->
-                        Array(4) { y ->
-                            Array(3) Arr@{ z ->
-                                if (x == 1 && (y == 1 || y == 2) && z == 1) return@Arr null
-                                val X = it.second.first - 1 + x
-                                if (X < 0 || X > house.size) return@Arr null
-                                val Y = it.second.second - 1 + y
-                                if (Y < 0 || Y > house[0].size) return@Arr null
-                                val Z = it.second.third - 1 + z
-                                if (Z < 0 || Z > house[0][0].size) return@Arr null
+        val directions = Iterable {
+            iterator {
+                if (y < data[x].size - 2) yield(Direction3D.UP)
+                if (z < data[x][y].size - 1) yield(Direction3D.FORWARD)
+                if (x < data.size - 1) yield(Direction3D.RIGHT)
+                if (y > 0) yield(Direction3D.DOWN)
+                if (z > 0) yield(Direction3D.BACKWARD)
+                if (x > 0) yield(Direction3D.LEFT)
+            }
+        }.toSet()
 
-                                house[X][Y][Z]
-                            }
+        val arr = Array(3) { x1 ->
+            Array(4) { y1 ->
+                Array(3) Arr@{ z1 ->
+                    if (x1 == 1 && (y1 == 1 || y1 == 2) && z1 == 1) return@Arr null
+                    val X = x - 1 + x1
+                    if (X < 0 || X >= data.size) return@Arr null
+                    val Y = y - 1 + y1
+                    if (Y < 0 || Y >= data[x].size) return@Arr null
+                    val Z = z - 1 + z1
+                    if (Z < 0 || Z >= data[x][y].size) return@Arr null
+
+                    data[X][Y][Z]
+                }
+            }
+        }
+
+        return Triple(directions, horizontal, arr)
+    }
+
+    private fun findSurroundings(template: Array<Array<Array<Block>>>): Iterable<Triple<Set<Direction3D>, Boolean, Array<Array<Array<Block?>>>>> {
+        return Iterable {
+            iterator {
+                for (x in template.indices) {
+                    for (y in 0 until template[x].size - 1) {
+                        for (z in template[x][y].indices) {
+                            if (template[x][y][z].block !in DOORS || template[x][y + 1][z].block !in DOORS) continue
+
+                            val res = getSurroundings(template, x, y, z) ?: continue
+                            yield(res)
                         }
                     }
-
-                    yield(Triple(directions, horizontal, arr))
                 }
-            }.toList().toTypedArray()
-        }.toTypedArray().flatten().toTypedArray()
+            }
+        }
+    }
+
+    private fun yRotated(data: Array<Array<Array<Block?>>>): Array<Array<Array<Block?>>> {
+        val res: Array<Array<Array<Block?>>> =
+            Array(data[0][0].size) { x -> Array(data[x].size) { y -> Array(data.size) { null } } }
+
+        for (x in data.indices) {
+            for (y in data[x].indices) {
+                for (z in data[x][y].indices) {
+                    res[z][y][x] = data[data.size - 1 - x][y][z]
+                }
+            }
+        }
+
+        return res
+    }
+
+    private fun getRotations(data: Triple<Set<Direction3D>, Boolean, Array<Array<Array<Block?>>>>): Iterable<Triple<Set<Direction3D>, Boolean, Array<Array<Array<Block?>>>>> {
+        return Iterable {
+            iterator {
+                yield(data)
+
+                var d = data
+                for (i in 0 until 4) {
+                    d = Triple(d.first.map {
+                        when (it) {
+                            Direction3D.LEFT -> Direction3D.FORWARD
+                            Direction3D.FORWARD -> Direction3D.RIGHT
+                            Direction3D.RIGHT -> Direction3D.BACKWARD
+                            Direction3D.BACKWARD -> Direction3D.LEFT
+                            else -> it
+                        }
+                    }.toSet(), !d.second, yRotated(d.third))
+                    yield(d)
+                }
+            }
+        }
+    }
+
+    private fun findSurroundings(
+        template: Array<Array<Array<Block>>>,
+        house: Array<Array<Array<Block>>>,
+        coloredDoors: MutableSet<Pair<Pair<Int, Int>, Triple<Int, Int, Int>>>
+    ): Array<Triple<Set<Direction3D>, Boolean, Array<Array<Array<Block?>>>>> {
+        return findSurroundings(template).plus(
+            coloredDoors.map {
+                Iterable {
+                    iterator {
+                        val res = getSurroundings(house, it.second.first, it.second.second, it.second.third)
+                        if (res != null) yield(res)
+                    }
+                }.toList().toTypedArray()
+            }.toTypedArray().flatten()
+        ).map {
+            getRotations(it)
+        }.flatten().toTypedArray()
     }
 
     private fun placeInDoors(
         coloredDoors: MutableSet<Pair<Pair<Int, Int>, Triple<Int, Int, Int>>>,
         surroundings: Array<Triple<Set<Direction3D>, Boolean, Array<Array<Array<Block?>>>>>,
         house: Array<Array<Array<Block>>>,
+        originalDoors: Array<Blocks>,
         random: Random
     ) {
-        val doors =
-            house.flatten().toTypedArray().flatten().map { it.block }.filter { it in DOORS }.distinct().firstOrNull()
-                ?: Blocks.OAK_DOOR
+        val doors = originalDoors.random()
 
         for (door in coloredDoors) {
             val x = door.second.first
@@ -326,7 +425,7 @@ class GenerateHouse {
             }.toList().toTypedArray()))
 
             val usableSurroundings = surroundings.filter { surround ->
-                requiredDirections.all { it in surround.first }
+                requiredDirections.all { it in surround.first && horizontal == surround.second }
             }
 
             if (usableSurroundings.isNotEmpty()) {

@@ -5,6 +5,7 @@ import org.mifek.wfc.datastructures.PatternsArrayBuilder
 import org.mifek.wfc.datatypes.Direction2D
 import org.mifek.wfc.models.options.Cartesian2DModelOptions
 import org.mifek.vgl.utils.TemplateHolder
+import org.mifek.vgl.utils.random
 import org.mifek.wfc.core.Cartesian2DWfcAlgorithm
 import org.mifek.wfc.datastructures.IntHolder
 import org.mifek.wfc.models.Patterns
@@ -12,7 +13,6 @@ import org.mifek.wfc.models.Pixels
 import org.mifek.wfc.topologies.Cartesian2DTopology
 import org.mifek.wfc.utils.*
 import kotlin.math.pow
-import kotlin.math.sqrt
 import kotlin.random.Random
 
 class MinecraftVillageAdapter {
@@ -106,7 +106,6 @@ class MinecraftVillageAdapter {
                 val totalSum = sumAreas.sum()
 
                 // 1 for empty space
-                val factors = sumAreas.map { it / totalSum }.plus(1)
                 val emptySpaceWeight = options.templateOptions.size * options.emptySpaceWeight.toInt()
 
                 // 36 / 63 spaces in patterns are empty and do not actually count.
@@ -122,7 +121,7 @@ class MinecraftVillageAdapter {
                 val patterns: MutableList<IntArray2D> =
                     templateMapping.keys.map {
                         createTemplatePatterns(
-                            it,
+                            1,
                         )
                     }.flatten().toMutableList()
                 println("Patterns ready")
@@ -141,15 +140,12 @@ class MinecraftVillageAdapter {
                 patterns.add(EMPTY_SPACE_PATTERN)
 
                 println("counts ready")
-//                println(factors)
-
-                val oneTemplate = (patternCounts.size - 1) / (options.templateOptions.size)
 
                 val weightSum = patternCounts.sumOf { it.second.item }
                 val weights =
                     DoubleArray(patternCounts.size) {
                         val modifier = if (patternCounts[it].first.all { pixel -> pixel != 0 }) fillFactor else 1.0
-                        (patternCounts[it].second.item / weightSum.toDouble()).pow(options.modelOptions.weightPower) * factors[it / oneTemplate] * modifier
+                        (patternCounts[it].second.item / weightSum.toDouble()).pow(options.modelOptions.weightPower) * modifier
                     }
 
                 println("weights ready")
@@ -218,6 +214,10 @@ class MinecraftVillageAdapter {
 //                algorithm.afterStep += {
 //                    println("Af Step")
 //                }
+
+                algorithm.afterFail += {
+                    println("Failed..")
+                }
 //                algorithm.beforeWarmup += {
 //                    println("Before warmup")
 //                }
@@ -268,61 +268,81 @@ class MinecraftVillageAdapter {
                     return null
                 }
 
-//                println("result")
+                println("result")
 
                 val output =
                     constructNullableOutput(width, height, algorithm, patternCounts.map { it.first }, algPatterns)
 
-//                println("output")
+                println("output")
 
-//                printGrid(output)
+                printGrid(output)
 
                 return Iterable {
                     iterator {
-                        val used = Array(output.size) {
-                            Array(output[it].size) {
-                                false
+                        try {
+                            val r = Random(options.seed ?: Random.nextInt())
+                            val used = Array(output.size) {
+                                Array(output[it].size) {
+                                    false
+                                }
                             }
-                        }
 
-                        for (x in output.indices) {
-                            for (y in output[x].indices) {
-                                if (output[x][y] == 0 || used[x][y]) continue
+                            for (x in output.indices) {
+                                for (z in output[x].indices) {
+                                    if (output[x][z] == 0 || used[x][z]) continue
 
-                                var houseWidth = 0
-                                while (x + houseWidth < output.size && output[x + houseWidth][y] == output[x][y]) {
-                                    houseWidth++
-                                }
-
-                                var houseHeight = 0
-                                while (y + houseHeight < output[x].size && output[x + houseHeight][y] == output[x][y]) {
-                                    houseHeight++
-                                }
-
-                                for (w in 0 until houseWidth) {
-                                    for (h in 0 until houseHeight) {
-                                        used[x + w][y + h] = true
+                                    var houseWidth = 0
+                                    while (x + houseWidth < output.size && output[x + houseWidth][z] == output[x][z]) {
+                                        houseWidth++
                                     }
-                                }
 
-                                val name =
-                                    options.templateOptions.filter { it.value.second.first >= houseWidth && it.value.second.third >= houseHeight }.keys.random()
+                                    var houseDepth = 0
+                                    while (z + houseDepth < output[x].size && output[x][z + houseDepth] == output[x][z]) {
+                                        houseDepth++
+                                    }
 
-                                yield(
-                                    Triple(
-                                        name,
-                                        Pair(x, y),
-                                        Pair(houseWidth, houseHeight)
+                                    for (w in 0 until houseWidth) {
+                                        for (h in 0 until houseDepth) {
+                                            used[x + w][z + h] = true
+                                        }
+                                    }
+
+                                    println("Found house at [$x,$z] with size ${houseWidth}x${houseDepth}")
+
+                                    val filtered =
+                                        options.templateOptions.filter {
+                                            it.value.second.first <= houseWidth &&
+                                                    it.value.second.second <= houseDepth &&
+                                                    it.value.third?.first ?: Int.MAX_VALUE >= houseWidth &&
+                                                    it.value.third?.second ?: Int.MAX_VALUE >= houseDepth
+                                        }.map { Pair(it.key, it.value.first) }.toMap()
+
+                                    println("${filtered.size} available fit-able templates.")
+
+                                    if (filtered.isEmpty()) continue
+
+                                    val name = filtered.random(r)
+
+                                    yield(
+                                        Triple(
+                                            name,
+                                            Pair(x, z),
+                                            Pair(houseWidth, houseDepth)
+                                        )
                                     )
-                                )
+                                }
                             }
+                        } catch (error: Exception) {
+                            println("error iterator")
+                            println(error)
+                            println(error.stackTraceToString())
                         }
                     }
                 }
             } catch (error: Exception) {
                 println("error")
                 println(error)
-                println(error.stackTrace.joinToString("\n\t"))
+                println(error.stackTraceToString())
                 throw error
             }
         }

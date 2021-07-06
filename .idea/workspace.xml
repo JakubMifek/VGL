@@ -5,28 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="632766bd-5073-4879-9c5a-5f600d82e08a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/GenerateVillage.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/utils/IntArray2DExtensions.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/FloorPlan.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/FloorPlanOptions.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/MinecraftVillageAdapter.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/MinecraftVillageAdapterOptions.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/Extensions.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/Postprocess3D.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/VillageTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/cross.tmpl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/test3.tmpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/utils/MapExtensions.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/Generate.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/Generate.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/GenerateHouse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/GenerateHouse.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/implementations/Blocks.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/implementations/Blocks.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/palettes/Basic.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/palettes/Palette.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/MinecraftWfcAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/MinecraftWfcAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/MinecraftWfcAdapterOptions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/MinecraftWfcAdapterOptions.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmMain/kotlin/org/mifek/vgl/village/FloorPlan.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmMain/kotlin/org/mifek/vgl/village/FloorPlan.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/FloorPlanTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/FloorPlanTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/MinecraftWfcAdapterTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/MinecraftWfcAdapterTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/utils/TemplateHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/utils/TemplateHolder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/FloorPlan.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/FloorPlan.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/MinecraftVillageAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/MinecraftVillageAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/MinecraftVillageAdapterOptions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/MinecraftVillageAdapterOptions.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/Extensions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/Extensions.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/VillageTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/VillageTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,6 +92,9 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/templates" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -114,24 +106,44 @@
     </key>
   </component>
   <component name="RunManager" selected="Gradle.VGL [jar]">
-    <configuration name="Postprocess3D.testCrossPostprocess" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="VGL [allTests]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;org.mifek.vgl.wfc.Postprocess3D.testCrossPostprocess&quot;" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="cleanJvmTest" />
-            <option value="jvmTest" />
+            <option value="allTests" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="VGL [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
@@ -157,7 +169,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="VGL [jvmJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="VGL [test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -168,34 +180,12 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="jvmJar" />
+            <option value="test" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
       <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="VillageTest.testHouseQuantityGeneration" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;org.mifek.vgl.wfc.VillageTest.testHouseQuantityGeneration&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="cleanJvmTest" />
-            <option value="jvmTest" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
@@ -225,10 +215,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.VGL [jar]" />
-        <item itemvalue="Gradle.VillageTest.testHouseQuantityGeneration" />
+        <item itemvalue="Gradle.VGL [allTests]" />
+        <item itemvalue="Gradle.VGL [build]" />
+        <item itemvalue="Gradle.VGL [test]" />
         <item itemvalue="Gradle.VillageTest.testVillageLayoutGeneration" />
-        <item itemvalue="Gradle.VGL [jvmJar]" />
-        <item itemvalue="Gradle.Postprocess3D.testCrossPostprocess" />
       </list>
     </recent_temporary>
   </component>
