@@ -1,4 +1,4 @@
-//package org.mifek.vgl.commands
+package org.mifek.vgl.commands.deprecated//package org.mifek.vgl.commands
 //
 //import org.mifek.vgl.implementations.Block
 //import org.mifek.vgl.implementations.Blocks

@@ -1,5 +1,9 @@
 package org.mifek.vgl.commands
 
+import org.mifek.vgl.AIR_BLOCK
+import org.mifek.vgl.BREAKABLE
+import org.mifek.vgl.DOORS
+import org.mifek.vgl.TRANSPARENT
 import org.mifek.vgl.implementations.Block
 import org.mifek.vgl.implementations.Blocks
 import org.mifek.vgl.implementations.PlacedBlock
@@ -35,36 +39,6 @@ class GenerateHouse {
             ),
             repeats = 1,
         )
-
-        val DOORS = setOf(
-            Blocks.OAK_DOOR,
-            Blocks.ACACIA_DOOR,
-            Blocks.BIRCH_DOOR,
-            Blocks.DARK_OAK_DOOR,
-            Blocks.IRON_DOOR,
-            Blocks.JUNGLE_DOOR,
-            Blocks.SPRUCE_DOOR,
-        )
-
-        val TRANSPARENT = setOf(
-            Blocks.AIR,
-//            Blocks.IRON_TRAPDOOR,
-//            Blocks.WOODEN_TRAPDOOR
-        ).plus(DOORS)
-
-        val AIR_BLOCK = Block(Blocks.AIR)
-
-        val BREAKABLE = setOf(
-            Blocks.TORCH,
-            Blocks.GRASS,
-            Blocks.RAIL,
-            Blocks.ACTIVATOR_RAIL,
-            Blocks.DETECTOR_RAIL,
-            Blocks.POWERED_RAIL,
-            Blocks.CACTUS,
-            Blocks.BED
-            // TODO: Finish
-        ).plus(DOORS)
 
         private val posXLowerDoors =
             hashMapOf<String, Any>(Pair("half", "lower"), Pair("facing", "west"), Pair("hinge", "left"))
@@ -336,7 +310,7 @@ class GenerateHouse {
 
     private fun yRotated(data: Array<Array<Array<Block?>>>): Array<Array<Array<Block?>>> {
         val res: Array<Array<Array<Block?>>> =
-            Array(data[0][0].size) { x -> Array(data[x].size) { y -> Array(data.size) { null } } }
+            Array(data[0][0].size) { x -> Array(data[x].size) { Array(data.size) { null } } }
 
         for (x in data.indices) {
             for (y in data[x].indices) {

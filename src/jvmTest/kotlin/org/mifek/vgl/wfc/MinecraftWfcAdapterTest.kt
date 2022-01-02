@@ -7,29 +7,18 @@ import org.mifek.vgl.implementations.PlacedBlock
 import org.mifek.vgl.interfaces.IBlockStream
 import org.mifek.vgl.utils.TemplateHolder
 import org.mifek.wfc.models.options.Cartesian3DModelOptions
-import kotlin.test.Test
-import kotlin.test.assertNotEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 @ExperimentalUnsignedTypes
 class MinecraftWfcAdapterTest {
     private val adapterOptions = MinecraftWfcAdapterOptions(
-        overlap = 2,
-        modelOptions = Cartesian3DModelOptions(
+        overlap = 2, modelOptions = Cartesian3DModelOptions(
             periodicInput = false
-        ),
-        debugOptions = DebugOptions(seed = 123),
-        repeats = 50
+        ), debugOptions = DebugOptions(seed = 123), repeats = 50
     )
     private val outputSize = Triple(11, 11, 11)
     private val testArea = Area(
-        0,
-        0,
-        0,
-        outputSize.first,
-        outputSize.second,
-        outputSize.third
+        0, 0, 0, outputSize.first, outputSize.second, outputSize.third
     )
     private val templateHolder = TemplateHolder.templates
 
@@ -62,12 +51,11 @@ class MinecraftWfcAdapterTest {
     fun testOutputStream() {
         val options = adapterOptions.copy(
             streamOptions = StreamOptions(
-                stream = TestStream(),
-                area = testArea
+                stream = TestStream(), area = testArea
             )
         )
         val result = MinecraftWfcAdapter.imitate(templateHolder["wood_block"]!!, outputSize, options)
-//        assertNotNull(result)
+        assertNull(result)
 //        printTemplate(result)
     }
 
@@ -85,12 +73,11 @@ class MinecraftWfcAdapterTest {
     @Test
     fun testSaveTemplateCommand() {
         val name = SaveTemplate().execute(
-            TemplateHolder.templates["wood_block"]!!,
-            "tmp"
+            TemplateHolder.templates["wood_block"]!!, "tmp"
         )
         assertNotEquals("wood_block", name)
-        val one = TemplateHolder.templates[name]!!.flatten().toTypedArray().flatten().map { it.serialize() }
-            .toTypedArray()
+        val one =
+            TemplateHolder.templates[name]!!.flatten().toTypedArray().flatten().map { it.serialize() }.toTypedArray()
         val two = TemplateHolder.templates["wood_block"]!!.flatten().toTypedArray().flatten().map { it.serialize() }
             .toTypedArray()
         assertTrue(one.contentEquals(two))

@@ -5,17 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="632766bd-5073-4879-9c5a-5f600d82e08a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/utils/MapExtensions.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/GenerateRunnable.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/LoadTemplate.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/Replicate.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/deprecated/SpawnDirtBlock.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/deprecated/SpawnHouse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/VGL_jvm_1_0_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/VGL_jvm_1_0_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/Generate.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/Generate.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/Constants.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/Constants.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/GenerateHouse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/GenerateHouse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/implementations/Blocks.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/implementations/Blocks.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/utils/TemplateHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/utils/TemplateHolder.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/FloorPlan.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/FloorPlan.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/MinecraftVillageAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/MinecraftVillageAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/MinecraftVillageAdapterOptions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/wfc/MinecraftVillageAdapterOptions.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/Extensions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/Extensions.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/VillageTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/VillageTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/GenerateVillage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/deprecated/GenerateVillage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/SpawnDirtBlock.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/SpawnHouse.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commonTest/kotlin/org/mifek/vgl/commands/SpawnDirtBlockTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/MinecraftWfcAdapterTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/MinecraftWfcAdapterTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/Postprocess3D.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/Postprocess3D.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +88,9 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="1tXmCX99Lmietkiyf8m3Cl0JY4y" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -100,9 +108,15 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\jakub\Documents\Github\VGL\templates" />
     </key>
-    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
-      <recent name="org.mifek.vgl.wfc" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jakub\Documents\Github\VGL\src\commonMain\kotlin\org\mifek\vgl\commands\deprecated" />
+    </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
       <recent name="org.mifek.vgl.commands" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="org.mifek.vgl.commands" />
+      <recent name="org.mifek.vgl.wfc" />
     </key>
   </component>
   <component name="RunManager" selected="Gradle.VGL [jar]">
@@ -139,6 +153,27 @@
         <option name="taskNames">
           <list>
             <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="VGL [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -190,35 +225,13 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="VillageTest.testVillageLayoutGeneration" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;org.mifek.vgl.wfc.VillageTest.testVillageLayoutGeneration&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="cleanJvmTest" />
-            <option value="jvmTest" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.VGL [jar]" />
         <item itemvalue="Gradle.VGL [allTests]" />
         <item itemvalue="Gradle.VGL [build]" />
+        <item itemvalue="Gradle.VGL [clean]" />
         <item itemvalue="Gradle.VGL [test]" />
-        <item itemvalue="Gradle.VillageTest.testVillageLayoutGeneration" />
       </list>
     </recent_temporary>
   </component>
@@ -243,6 +256,5 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
