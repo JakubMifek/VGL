@@ -5,22 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="632766bd-5073-4879-9c5a-5f600d82e08a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/GenerateRunnable.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/LoadTemplate.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/Replicate.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/deprecated/SpawnDirtBlock.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/deprecated/SpawnHouse.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/VGL_jvm_1_0_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/VGL_jvm_1_0_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/Constants.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/Constants.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/GenerateHouse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/GenerateHouse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/GenerateVillage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/deprecated/GenerateVillage.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/SpawnDirtBlock.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonMain/kotlin/org/mifek/vgl/commands/SpawnHouse.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commonTest/kotlin/org/mifek/vgl/commands/SpawnDirtBlockTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/MinecraftWfcAdapterTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/MinecraftWfcAdapterTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/Postprocess3D.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/jvmTest/kotlin/org/mifek/vgl/wfc/Postprocess3D.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
